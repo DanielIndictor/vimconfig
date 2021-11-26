@@ -63,7 +63,7 @@ hi DiffChange					ctermbg=237										guibg=#382a37
 "hi PmenuThumb
 "hi Question
 "hi Scrollbar
-"hi SignColumn
+hi clear SignColumn
 "hi SpellBad
 "hi SpellCap
 "hi SpellLocal
@@ -76,6 +76,10 @@ hi TabLineSel   ctermfg=252     ctermbg=000     cterm=none
 "hi User9
 "hi WildMenu
 
+highlight GitGutterAdd ctermfg=2
+highlight GitGutterChange ctermfg=3
+highlight GitGutterDelete ctermfg=1
+highlight GitGutterChangeDelete ctermfg=4
 
 " Syntax highlighting
 hi Keyword		ctermfg=111		cterm=none		guifg=#88b8f6	gui=none
