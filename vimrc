@@ -22,16 +22,17 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'gcmt/wildfire.vim'
-Plugin 'Yggdroot/indentLine'
 Plugin 'ap/vim-buftabline'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'ycm-core/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 
 "Front End
 Plugin 'pangloss/vim-javascript'
 Plugin 'ap/vim-css-color'
 Plugin 'miripiruni/CSScomb-for-Vim'
 
-"Color Schemes
-Plugin 'vim-scripts/wombat256.vim'
 
 call vundle#end()            " required
 " }}}
@@ -39,6 +40,15 @@ call vundle#end()            " required
 " Plugin Settings {{{
 let g:windowswap_map_keys = 0 "prevent default bindings
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+" }}}
+
+
+" YouCompleteMe Settings {{{
+" Enable debugging
+let g:ycm_keep_logfiles = 1
+let g:ycm_log_level = 'debug'
+
+"let &rtp .= ',' . expand( '<sfile>:p:h' )
 " }}}
 
 " Airline {{{
