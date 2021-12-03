@@ -47,8 +47,14 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " Enable debugging
 let g:ycm_keep_logfiles = 1
 let g:ycm_log_level = 'debug'
-
+" Make preview autolose.
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 "let &rtp .= ',' . expand( '<sfile>:p:h' )
+" }}}
+
+" YouCompleteMe Settings {{{
+let g:buftabline_numbers = 1
 " }}}
 
 " Airline {{{
