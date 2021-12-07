@@ -106,7 +106,7 @@ autocmd WinEnter * call NERDTreeQuit()
 set nocompatible
 filetype off
 set foldmethod=syntax
-set nofoldenable
+set foldnestmax=1
 
 set linebreak
 
