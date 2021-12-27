@@ -27,6 +27,8 @@ Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
+Plugin 'kana/vim-operator-user'
+Plugin 'rhysd/vim-clang-format'
 
 "Front End
 Plugin 'pangloss/vim-javascript'
@@ -42,6 +44,11 @@ let g:windowswap_map_keys = 0 "prevent default bindings
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " }}}
 
+
+" vim-clang-format Settings {{{
+autocmd FileType c,cpp,objc map <buffer>= <Plug>(operator-clang-format)
+let g:clang_format#auto_format = 1
+" }}}
 
 " YouCompleteMe Settings {{{
 " Enable debugging
@@ -122,7 +129,8 @@ set fileencodings=utf-8
 
 set autoindent
 set smartindent
-set cindent
+"set cindent
+set smartindent
 set background=dark
 set expandtab
 set smarttab
