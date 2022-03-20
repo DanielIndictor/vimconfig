@@ -29,11 +29,13 @@ Plugin 'ycm-core/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'kana/vim-operator-user'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'idanarye/vim-vebugger'
 
 "Front End
 Plugin 'pangloss/vim-javascript'
 Plugin 'ap/vim-css-color'
 Plugin 'miripiruni/CSScomb-for-Vim'
+Plugin 'dense-analysis/ale'
 
 
 call vundle#end()            " required
@@ -44,6 +46,13 @@ let g:windowswap_map_keys = 0 "prevent default bindings
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " }}}
 
+" ale Settings {{{
+let b:ale_linters = ['pylint']
+let b:ale_fixers = ['autopep8']
+autocmd FileType py map <buffer>= <Plug>(operator-clang-format)
+let g:airline#extensions#ale#enabled = 1
+" }}}
+"
 
 " vim-clang-format Settings {{{
 autocmd FileType c,cpp,objc map <buffer>= <Plug>(operator-clang-format)
@@ -51,13 +60,15 @@ let g:clang_format#auto_format = 1
 " }}}
 
 " YouCompleteMe Settings {{{
-" Enable debugging
-let g:ycm_keep_logfiles = 1
-let g:ycm_log_level = 'debug'
+" " Enable debugging
+" let g:ycm_keep_logfiles = 1
+" let g:ycm_log_level = 'debug'
 " Make preview autolose.
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "let &rtp .= ',' . expand( '<sfile>:p:h' )
+"
 " }}}
 
 " YouCompleteMe Settings {{{
