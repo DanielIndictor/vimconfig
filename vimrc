@@ -47,7 +47,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " }}}
 
 " ale Settings {{{
-let b:ale_linters = ['pylint']
+let b:ale_linters = {'python': ['pylint'], 'systemverilog': ['verilator']}
 let b:ale_fixers = ['autopep8']
 autocmd FileType py map <buffer>= <Plug>(operator-clang-format)
 let g:airline#extensions#ale#enabled = 1
