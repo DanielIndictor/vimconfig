@@ -1,32 +1,7 @@
+vim.cmd[[colorscheme wombat256mod_custom]]
+
 return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Packer can manage itself
-	use {
-		'ojroques/nvim-hardline',
-		config = function()
-			require('hardline').setup {
-				bufferline = true,  -- enable bufferline
-				bufferline_settings = {
-					exclude_terminal = false,  -- don't show terminal buffers in bufferline
-					show_index = false,        -- show buffer indexes (not the actual buffer numbers) in bufferline
-				},
-				theme = 'default',   -- change theme
-				-- define sections
-				sections = {
-					{class = 'mode', item = require('hardline.parts.mode').get_item},
-					{class = 'high', item = require('hardline.parts.git').get_item, hide = 100},
-					{class = 'med', item = require('hardline.parts.filename').get_item},
-					'%<',
-					{class = 'med', item = '%='},
-					{class = 'low', item = require('hardline.parts.wordcount').get_item, hide = 100},
-					{class = 'error', item = require('hardline.parts.lsp').get_error},
-					{class = 'warning', item = require('hardline.parts.lsp').get_warning},
-					{class = 'warning', item = require('hardline.parts.whitespace').get_item},
-					{class = 'high', item = require('hardline.parts.filetype').get_item, hide = 60},
-					{class = 'mode', item = require('hardline.parts.line').get_item},
-				},
-			}
-		end
-	}
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		requires = {
@@ -51,6 +26,55 @@ return require('packer').startup(function(use)
 			local lsp = require('lsp-zero')
 			lsp.preset('recommended')
 			lsp.setup()
+		end
+	}
+	use {
+		'noib3/nvim-cokeline',
+		config = function()
+			local get_hex = require("cokeline/utils").get_hex
+			require('cokeline').setup({
+				rendering = {
+					-- The maximum number of characters a rendered buffer is allowed to take
+					-- up. The buffer will be truncated if its width is bigger than this
+					-- value.
+					-- default: `999`.
+					max_buffer_width = 50,
+				},
+				-- The default highlight group values.
+				-- The `fg` and `bg` keys are either colors in hexadecimal format or
+				-- functions taking a `buffer` parameter and returning a color in
+				-- hexadecimal format. Similarly, the `style` key is either a string
+				-- containing a comma separated list of items in `:h attr-list` or a
+				-- function returning one.
+				default_hl = {
+					-- default: `ColorColumn`'s background color for focused buffers,
+					-- `Normal`'s foreground color for unfocused ones.
+					fg = get_hex("Normal", "fg"),
+					bg = get_hex("Normal", "bg"),
+				},
+				components = {
+					-- index
+					{
+						text = function(buffer) return ' ' .. buffer.index .. ' ' end,
+					},
+					-- filename
+					{
+						text = function(buffer) return buffer.unique_prefix .. buffer.filename end,
+						fg = function(buffer)
+							if buffer.diagnostics.errors ~= 0 then
+								return get_hex("ErrorMsg", "fg")
+							elseif buffer.diagnostics.warnings ~= 0 then
+								return get_hex("WarningMsg", "fg")
+							end
+							return nil
+						end,
+						style = function(buffer) return buffer.is_focused and "underline" or "NONE" end
+					},
+					{
+						text = " "
+					},
+				}
+			})
 		end
 	}
 
