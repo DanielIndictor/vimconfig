@@ -1,7 +1,66 @@
-vim.cmd[[colorscheme wombat256mod_custom]]
-
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim' -- Packer can manage itself
+  use {'neovimhaskell/haskell-vim',
+    config = function()
+      vim.g.haskell_enable_quantification = 1   -- enable highlighting of `forall`
+      vim.g.haskell_enable_recursivedo = 1      -- enable highlighting of `mdo` and `rec`
+      vim.g.haskell_enable_arrowsyntax = 1      -- enable highlighting of `proc`
+      vim.g.haskell_enable_pattern_synonyms = 1 -- enable highlighting of `pattern`
+      vim.g.haskell_enable_typeroles = 1        -- enable highlighting of type roles
+      vim.g.haskell_enable_static_pointers = 1  -- enable highlighting of `static`
+      vim.g.haskell_backpack = 1                -- enable highlighting of backpack keywords
+    end
+  }
+  use {
+    'NLKNguyen/papercolor-theme',
+    config = function()
+      vim.o.background = 'dark'
+      vim.o.t_Co=256
+      vim.g.PaperColor_Theme_Options = {
+        language = {
+          python = { highlight_builtins = 1 },
+          cpp = { highlight_standard_library = 1 },
+          c = { highlight_builtins = 1 }
+        },
+        theme = {
+          ["default.dark"] = {
+            transparent_background = 1,
+            allow_bold = 0,
+            override = {
+              color00 = { "#000000", "000" },
+              linenumber_bg = { "#000000", "000" },
+              cursor_bg = {'#000000', '000'},
+              cursorlinenr_bg = {'#000000', '000'},
+              popupmenu_bg = {'#000000', '000'},
+              linenumber_bg = {'#000000', '000'},
+              vertsplit_bg = { '#000000', '000'},
+              statusline_active_bg = { '#000000', '000'},
+              statusline_inactive_bg = { '#000000', '000'},
+              todo_bg = { '#000000', '000'},
+              error_bg = { '#000000', '000'},
+              matchparen_bg = { '#000000', '000'},
+              -- visual_bg = { '#000000', '000'},
+              folded_bg = { '#000000', '000'},
+              wildmenu_bg = {'#000000', '000'},
+              tabline_bg = {'#000000', '000'},
+              tabline_active_bg = {'#000000', '000'},
+              tabline_inactive_bg = {'#000000', '000'},
+              buftabline_bg = {'#000000', '000'},
+              buftabline_current_bg = {'#000000', '000'},
+              buftabline_active_bg = {'#000000', '000'},
+              buftabline_inactive_bg = {'#000000', '000'}
+            }
+          }
+        }
+      }
+
+      vim.cmd [[ 
+      syntax enable
+      colorscheme PaperColor
+      hi clear SignColumn
+      ]]
+    end
+  }
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
@@ -25,7 +84,7 @@ return require('packer').startup(function(use)
     config = function()
       local lsp = require('lsp-zero')
       lsp.preset('recommended')
-      
+
       local cmp_mappings = lsp.defaults.cmp_mappings({ })
       -- disable confirm with Enter key
       cmp_mappings['<CR>'] = nil
