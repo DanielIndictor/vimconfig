@@ -40,4 +40,8 @@ vim.cmd [[
   autocmd BufEnter *.hs :syn sync minlines=2000
 ]]
 
+vim.g.mapleader = ' '
+vim.keymap.set('n', '<F4>', '<CMD>CodeActionMenu<CR>')
+
 require('plugins')
+

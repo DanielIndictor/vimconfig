@@ -82,14 +82,27 @@ return require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     },
     config = function()
-      local lsp = require('lsp-zero')
-      lsp.preset('recommended')
+      local lsp = require('lsp-zero').preset({
+        float_border = 'single',
+        call_servers = 'local',
+        configure_diagnostics = true,
+        setup_servers_on_start = true,
+        set_lsp_keymaps = {
+          preserve_mappings = false,
+          omit = {'<CR>', '<F4>'},
+        },
+        manage_nvim_cmp = {
+          set_basic_mappings = true,
+          set_extra_mappings = true,
+          use_luasnip = true,
+          set_format=true,
+          documentation_window=true
+        }
+      })
 
-      local cmp_mappings = lsp.defaults.cmp_mappings({ })
-      -- disable confirm with Enter key
-      cmp_mappings['<CR>'] = nil
-
-      lsp.setup_nvim_cmp({mapping = cmp_mappings})
+      -- lsp.on_attach(function(client, bufnr)
+      --   lsp.default_keymaps({buffer=bufnr, omit={'<CR>', '<F4>'}})
+      -- end)
       lsp.setup()
     end
   }
@@ -146,6 +159,17 @@ return require('packer').startup(function(use)
       })
     end
   }
+  use {
+    'weilbith/nvim-code-action-menu',
+    config = function ()
+      vim.g.code_action_menu_show_details = false
+      vim.g.code_action_menu_show_diff= true
+      vim.g.code_action_menu_show_action_kind = true
+      vim.g.code_action_menu_border_window = 'single'
+    end,
+    cmd = 'CodeActionMenu'
+  }
+
   --	use 'gpanders/editorconfig.nvim'
 
 end)
