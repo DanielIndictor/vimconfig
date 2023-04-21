@@ -65,7 +65,9 @@ return require('packer').startup(function(use)
           },
           -- filename
           {
-            text = function(buffer) return buffer.unique_prefix .. buffer.filename end,
+            text = function(buffer) 
+              return buffer.unique_prefix .. buffer.filename 
+            end,
             fg = function(buffer)
               if buffer.diagnostics.errors ~= 0 then
                 return get_hex("ErrorMsg", "fg")
@@ -74,7 +76,9 @@ return require('packer').startup(function(use)
               end
               return nil
             end,
-            style = function(buffer) return buffer.is_focused and "underline" or "NONE" end
+            style = function(buffer) 
+              return buffer.is_focused and "underline" or "NONE" 
+            end
           },
           {
             text = " "

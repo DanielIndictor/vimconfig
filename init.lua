@@ -13,4 +13,7 @@ set softtabstop=2
 set tabstop=2
 ]])
 
+
+vim.diagnostic.config({ virtual_text=false })
+
 require('plugins')
