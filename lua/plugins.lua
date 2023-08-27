@@ -11,8 +11,7 @@ return require('packer').startup(function(use)
       vim.g.haskell_backpack = 1                -- enable highlighting of backpack keywords
     end
   }
-  use {
-    'NLKNguyen/papercolor-theme',
+  use {'NLKNguyen/papercolor-theme',
     config = function()
       vim.o.background = 'dark'
       vim.o.t_Co=256
@@ -38,7 +37,7 @@ return require('packer').startup(function(use)
               statusline_inactive_bg = { '#000000', '000'},
               todo_bg = { '#000000', '000'},
               error_bg = { '#000000', '000'},
-              matchparen_bg = { '#000000', '000'},
+              -- matchparen_bg = { '#000000', '000'},
               -- visual_bg = { '#000000', '000'},
               folded_bg = { '#000000', '000'},
               wildmenu_bg = {'#000000', '000'},
@@ -61,8 +60,7 @@ return require('packer').startup(function(use)
       ]]
     end
   }
-  use {
-    'VonHeikemen/lsp-zero.nvim',
+  use { 'VonHeikemen/lsp-zero.nvim',
     requires = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
@@ -106,8 +104,10 @@ return require('packer').startup(function(use)
       lsp.setup()
     end
   }
-  use {
-    'noib3/nvim-cokeline',
+  use {'willothy/nvim-cokeline',
+    requires = {
+      "nvim-lua/plenary.nvim",        -- Required for v0.4.0+
+    },
     config = function()
       local get_hex = require("cokeline/utils").get_hex
       require('cokeline').setup({
@@ -133,7 +133,7 @@ return require('packer').startup(function(use)
         components = {
           -- index
           {
-            text = function(buffer) return ' ' .. buffer.number .. ' ' end,
+            text = function(buffer) return ' ' .. buffer.index .. ' ' end,
           },
           -- filename
           {
@@ -159,8 +159,7 @@ return require('packer').startup(function(use)
       })
     end
   }
-  use {
-    'weilbith/nvim-code-action-menu',
+  use {'weilbith/nvim-code-action-menu',
     config = function ()
       vim.g.code_action_menu_show_details = false
       vim.g.code_action_menu_show_diff= true

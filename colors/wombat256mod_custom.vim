@@ -31,7 +31,7 @@ hi VisualNOS	ctermfg=251		ctermbg=236		cterm=none		guifg=#c3c6ca	guibg=#303030	g
 hi Search		ctermfg=177		ctermbg=241		cterm=none		guifg=#d787ff	guibg=#636066	gui=none
 hi Folded		ctermfg=103		ctermbg=237		cterm=none		guifg=#a0a8b0	guibg=#3a4046	gui=none
 hi Title		ctermfg=230						cterm=bold		guifg=#ffffd7	guibg=#000000	gui=bold
-hi StatusLine	ctermfg=230		ctermbg=232		cterm=none		guifg=#ffffd7	guibg=#000000	gui=none
+hi StatusLine	ctermfg=230		ctermbg=000 	cterm=none		guifg=#ffffd7	guibg=#000000	gui=none
 hi VertSplit	ctermfg=238		ctermbg=238		cterm=none		guifg=#444444	guibg=#000000	gui=none
 hi StatusLineNC	ctermfg=241		ctermbg=238		cterm=none		guifg=#857b6f	guibg=#000000	gui=none
 hi LineNr		ctermfg=241		ctermbg=232		cterm=none		guifg=#857b6f	guibg=#000000	gui=none
@@ -68,9 +68,9 @@ hi clear SignColumn
 "hi SpellCap
 "hi SpellLocal
 "hi SpellRare
-"hi TabLine      ctermfg=241     ctermbg=000     cterm=none	guibg=#000000	gui=none
+hi TabLine      ctermfg=241     ctermbg=000     cterm=none	guibg=#000000	gui=none
 hi TabLineFill  ctermfg=000     ctermbg=000     cterm=none	guibg=#000000	gui=none
-hi TabLineSel   ctermfg=252     ctermbg=000     cterm=none	guibg=#000000	gui=none
+hi TabLineSel   ctermfg=241     ctermbg=000     cterm=none	guibg=#000000	gui=none
 "hi Tooltip
 "hi User1
 "hi User9
@@ -84,6 +84,7 @@ hi Number		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
 hi PreProc		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
 hi Function		ctermfg=192		cterm=none		guifg=#cae982	gui=none
 hi Identifier	ctermfg=192		cterm=none		guifg=#cae982	gui=none
+"hi link Identifier Normal
 hi Type			ctermfg=186		cterm=none		guifg=#d4d987	gui=none
 hi Special		ctermfg=229		cterm=none		guifg=#eadead	gui=none
 hi String		ctermfg=113		cterm=none		guifg=#95e454	gui=none
