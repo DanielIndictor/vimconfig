@@ -5,42 +5,23 @@
 -- autocmd FileType c,cpp setlocal equalprg=clang-format\ -style='file'
 -- "colorscheme wombat256mod_custom
 -- set termguicolors
--- set number
--- set autoindent
 -- "set cindent
 -- set smartindent
--- set expandtab
--- set smarttab
--- "set shiftwidth=2
 -- "set softtabstop=2
--- "set tabstop=2
 -- ]])
 
 vim.o.smartindent = true
 vim.o.termguicolors = true
-vim.o.number = true
+vim.o.number = true -- equivalent to vim.cmd([[set number]])
 -- vim.o.cindent = true
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.smarttab = true
-vim.o.shiftwidth=2
-vim.o.softtabstop=2
-vim.o.tabstop=2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.tabstop = 2
 
 vim.o.ignorecase = true
-
-local map = vim.api.nvim_set_keymap
-
-map('n', '<C-S-Tab>',   '<Plug>(cokeline-focus-prev)',  { silent = true })
-map('n', '<C-Tab>',     '<Plug>(cokeline-focus-next)',  { silent = true })
--- map('n', '<Leader>p', '<Plug>(cokeline-switch-prev)', { silent = true })
--- map('n', '<Leader>n', '<Plug>(cokeline-switch-next)', { silent = true })
-
-for i = 1,9 do
-  map('n', ('<F%s>'):format(i),      ('<Plug>(cokeline-focus-%s)'):format(i),  { silent = true })
-  -- map('n', ('<Leader>%s'):format(i), ('<Plug>(cokeline-switch-%s)'):format(i), { silent = true })
-end
-
 
 
 -- Trying papercolor theme in plugins.
@@ -56,12 +37,10 @@ vim.cmd [[
   autocmd BufEnter *.hs :syn sync minlines=2000
 ]]
 
-vim.o.foldmethod = "expr"
+vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
-
 vim.g.mapleader = ' '
-vim.keymap.set('n', '<F4>', '<CMD>CodeActionMenu<CR>')
 
 require('plugins')
 
