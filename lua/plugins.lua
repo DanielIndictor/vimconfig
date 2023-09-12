@@ -16,52 +16,20 @@ return require('packer').startup(function(use)
       vim.g.haskell_backpack = 1                -- enable highlighting of backpack keywords
     end
   }
-  use { 'NLKNguyen/papercolor-theme',
+  use { 'anuvyklack/pretty-fold.nvim',
     config = function()
-      vim.o.background = 'dark'
-      vim.o.t_Co = 256
-      vim.g.PaperColor_Theme_Options = {
-        language = {
-          python = { highlight_builtins = 1 },
-          cpp = { highlight_standard_library = 1 },
-          c = { highlight_builtins = 1 }
-        },
-        theme = {
-          ['default.dark'] = {
-            transparent_background = 1,
-            allow_bold = 0,
-            override = {
-              color00 = { '#000000', '000' },
-              cursor_bg = { '#000000', '000' },
-              cursorlinenr_bg = { '#000000', '000' },
-              popupmenu_bg = { '#000000', '000' },
-              linenumber_bg = { '#000000', '000' },
-              vertsplit_bg = { '#000000', '000' },
-              statusline_active_bg = { '#000000', '000' },
-              statusline_inactive_bg = { '#000000', '000' },
-              todo_bg = { '#000000', '000' },
-              error_bg = { '#000000', '000' },
-              -- matchparen_bg = { '#000000', '000'},
-              -- visual_bg = { '#000000', '000'},
-              folded_bg = { '#000000', '000' },
-              wildmenu_bg = { '#000000', '000' },
-              tabline_bg = { '#000000', '000' },
-              tabline_active_bg = { '#000000', '000' },
-              tabline_inactive_bg = { '#000000', '000' },
-              buftabline_bg = { '#000000', '000' },
-              buftabline_current_bg = { '#000000', '000' },
-              buftabline_active_bg = { '#000000', '000' },
-              buftabline_inactive_bg = { '#000000', '000' }
-            }
-          }
-        }
-      }
-
-      vim.cmd [[
-        syntax enable
-        colorscheme PaperColor
-        hi clear SignColumn
-      ]]
+      require('pretty-fold').setup({
+        fill_char=' '
+      })
+    end
+  }
+  use { 'tomasiser/vim-code-dark',
+    config = function()
+      vim.g.codedark_modern = 1
+      vim.g.codedark_italics = 0
+      vim.g.codedark_transparent = 1
+      vim.cmd.colorscheme('codedark')
+      vim.cmd.highlight('Folded', 'guibg=#111111', 'guifg=#A0A0A0')
     end
   }
   use { 'VonHeikemen/lsp-zero.nvim',
@@ -108,7 +76,7 @@ return require('packer').startup(function(use)
       lsp.setup()
     end
   }
-  use {'willothy/nvim-cokeline',
+  use { 'willothy/nvim-cokeline',
     requires = {
       'nvim-lua/plenary.nvim',        -- Required for v0.4.0+
     },

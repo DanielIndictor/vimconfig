@@ -21,7 +21,7 @@ vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
 
-vim.o.ignorecase = true
+vim.o.smartcase = true
 
 
 -- Trying papercolor theme in plugins.
@@ -38,7 +38,7 @@ vim.cmd [[
 ]]
 
 vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 vim.g.mapleader = ' '
 
