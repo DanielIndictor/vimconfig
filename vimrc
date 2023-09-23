@@ -138,11 +138,10 @@ filetype plugin indent on
 set encoding=utf-8
 set fileencodings=utf-8
 
+set background=dark
 set autoindent
-set smartindent
 "set cindent
 set smartindent
-set background=dark
 set expandtab
 set smarttab
 set shiftwidth=2
