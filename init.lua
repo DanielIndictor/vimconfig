@@ -30,10 +30,10 @@ vim.o.smartcase = true
 vim.diagnostic.config({ virtual_text=false })
 
 vim.cmd [[
-  syn sync minlines=2000
-  " For neovimhaskell/haskell-vim to work right.
-  filetype plugin indent on
-  autocmd BufEnter *.hs :syn sync minlines=2000
+syn sync minlines=2000
+" For neovimhaskell/haskell-vim to work right.
+filetype plugin indent on
+autocmd BufEnter *.hs :syn sync minlines=2000
 ]]
 
 vim.o.foldmethod = 'expr'
