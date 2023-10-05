@@ -112,7 +112,7 @@ return require('packer').startup(function(use)
             goto_next_start = {
               ["]m"] = "@function.outer",
               ["]f"] = "@call.outer",
-              ["]d"] = "@conditional.outer",
+              -- ["]d"] = "@conditional.outer",
               ["]o"] = "@loop.outer",
               ["]s"] = "@statement.outer",
               ["]a"] = "@parameter.outer",
@@ -127,7 +127,7 @@ return require('packer').startup(function(use)
               ["]e"] = "@scopename.outer",
               ["]]m"] = "@function.inner",
               ["]]f"] = "@call.inner",
-              ["]]d"] = "@conditional.inner",
+              -- ["]]d"] = "@conditional.inner",
               ["]]o"] = "@loop.inner",
               ["]]a"] = "@parameter.inner",
               ["]]b"] = "@block.inner",
@@ -142,7 +142,7 @@ return require('packer').startup(function(use)
             goto_next_end = {
               ["]M"] = "@function.outer",
               ["]F"] = "@call.outer",
-              ["]D"] = "@conditional.outer",
+              -- ["]D"] = "@conditional.outer",
               ["]O"] = "@loop.outer",
               ["]S"] = "@statement.outer",
               ["]A"] = "@parameter.outer",
@@ -154,7 +154,7 @@ return require('packer').startup(function(use)
               ["]E"] = "@scopename.outer",
               ["]]M"] = "@function.inner",
               ["]]F"] = "@call.inner",
-              ["]]D"] = "@conditional.inner",
+              -- ["]]D"] = "@conditional.inner",
               ["]]O"] = "@loop.inner",
               ["]]A"] = "@parameter.inner",
               ["]]B"] = "@block.inner",
@@ -166,7 +166,7 @@ return require('packer').startup(function(use)
             goto_previous_start = {
               ["[m"] = "@function.outer",
               ["[f"] = "@call.outer",
-              ["[d"] = "@conditional.outer",
+              -- ["[d"] = "@conditional.outer",
               ["[o"] = "@loop.outer",
               ["[s"] = "@statement.outer",
               ["[a"] = "@parameter.outer",
@@ -190,7 +190,7 @@ return require('packer').startup(function(use)
             goto_previous_end = {
               ["[M"] = "@function.outer",
               ["[F"] = "@call.outer",
-              ["[D"] = "@conditional.outer",
+              -- ["[D"] = "@conditional.outer",
               ["[O"] = "@loop.outer",
               ["[S"] = "@statement.outer",
               ["[A"] = "@parameter.outer",
@@ -202,7 +202,7 @@ return require('packer').startup(function(use)
               ["[E"] = "@scopename.outer",
               ["[[M"] = "@function.inner",
               ["[[F"] = "@call.inner",
-              ["[[D"] = "@conditional.inner",
+              -- ["[[D"] = "@conditional.inner",
               ["[[O"] = "@loop.inner",
               ["[[A"] = "@parameter.inner",
               ["[[B"] = "@block.inner",
@@ -293,7 +293,7 @@ return require('packer').startup(function(use)
       'nvim-lua/plenary.nvim' -- Required for v0.4.0+
     },
     config = function()
-      local get_hex = require('cokeline/utils').get_hex
+      local get_hex = require('cokeline/hlgroups').get_hl_attr
       local cokeline = require('cokeline')
       cokeline.setup({
         rendering = {
@@ -330,22 +330,17 @@ return require('packer').startup(function(use)
               end
               return nil
             end,
-            style = function(buffer)
-              return buffer.is_focused and 'underline' or 'NONE'
-            end
-          }, {text = ' '}
+            underline = function(buffer) return buffer.is_focused end,
+          },
+          {text = ' '}
         }
       })
 
-      -- TODO: Choose keymaps.
-      -- vim.keymap.set('n', '<Ctrl-S-Tab>', '<Plug>(cokeline-focus-prev)')
-      -- vim.keymap.set('n', '<Ctrl-Tab>',  '<Plug>(cokeline-focus-next)')
-      -- vim.keymap.set('n', '<Leader>p', '<Plug>(cokeline-switch-prev)')
-      -- vim.keymap.set('n', '<Leader>n', '<Plug>(cokeline-switch-next)')
-      -- for i = 1,9 do
-      --   vim.keymap.set('n', ('<C-%s>'):format(i),      ('<Plug>(cokeline-focus-%s)'):format(i),  { silent = true })
-      --   -- map('n', ('<Leader>%s'):format(i), ('<Plug>(cokeline-switch-%s)'):format(i), { silent = true })
-      -- end
+      vim.keymap.set('n', '<C-S-Tab>', '<Plug>(cokeline-focus-prev)')
+      vim.keymap.set('n', '<C-Tab>',  '<Plug>(cokeline-focus-next)')
+      for i = 1,9 do
+        vim.keymap.set('n', ('<C-%s>'):format(i), ('<Plug>(cokeline-focus-%s)'):format(i),  { silent = true })
+      end
 
     end
   }
@@ -385,6 +380,17 @@ return require('packer').startup(function(use)
     config = function()
       local leap_ast = require('leap-ast')
       vim.keymap.set({'n', 'x', 'o'}, '<Leader>s', leap_ast.leap, {})
+    end
+  }
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.x',
+    requires = { {'nvim-lua/plenary.nvim'} },
+    config = function ()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
     end
   }
 end)
