@@ -357,12 +357,19 @@ return require('packer').startup(function(use)
   }
   use {
     'ggandor/leap.nvim',
-    config = function() require('leap').add_default_mappings() end
+    config = function()
+      local leap = require('leap')
+      leap.add_default_mappings()
+      leap.opts.highlight_unlabeled_phase_one_targets = true
+      leap.opts.safe_labels = {}
+    end
   }
   use {
     'ggandor/flit.nvim',
     requires = {'ggandor/leap.nvim'},
-    config = function() require('flit').setup() end
+    config = function()
+      require('flit').setup()
+    end
   }
   use {
     'ggandor/leap-spooky.nvim',
