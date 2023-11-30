@@ -36,8 +36,7 @@ filetype plugin indent on
 autocmd BufEnter *.hs :syn sync minlines=2000
 ]]
 
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldmethod = 'syntax'
 
 vim.g.mapleader = ' '
 

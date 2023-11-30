@@ -336,8 +336,8 @@ return require('packer').startup(function(use)
         }
       })
 
-      vim.keymap.set('n', '<C-S-Tab>', '<Plug>(cokeline-focus-prev)')
-      vim.keymap.set('n', '<C-Tab>',  '<Plug>(cokeline-focus-next)')
+      vim.keymap.set('n', '<Leader>n', '<Plug>(cokeline-focus-next)')
+      vim.keymap.set('n', '<Leader>N', '<Plug>(cokeline-focus-prev)')
       for i = 1,9 do
         vim.keymap.set('n', ('<C-%s>'):format(i), ('<Plug>(cokeline-focus-%s)'):format(i),  { silent = true })
       end
