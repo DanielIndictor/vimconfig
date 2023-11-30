@@ -400,4 +400,14 @@ return require('packer').startup(function(use)
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
     end
   }
+  use {
+    "nvimdev/guard.nvim",
+    requires = { {'nvimdev/guard-collection'} },
+    config = function()
+      local ft = require('guard.filetype')
+      ft('python'):fmt('black'):lint('flake8')
+      vim.keymap.set({'n', 'v'}, 'gq', '<Cmd>GuardFmt<CR>')
+      require('guard').setup({})
+    end
+  }
 end)
