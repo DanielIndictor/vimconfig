@@ -339,6 +339,7 @@ return require('packer').startup(function(use)
       vim.keymap.set('n', '<Leader>n', '<Plug>(cokeline-focus-next)')
       vim.keymap.set('n', '<Leader>N', '<Plug>(cokeline-focus-prev)')
       for i = 1,9 do
+        vim.keymap.set('n', ('<Leader>%s'):format(i), ('<Plug>(cokeline-focus-%s)'):format(i),  { silent = true })
         vim.keymap.set('n', ('<C-%s>'):format(i), ('<Plug>(cokeline-focus-%s)'):format(i),  { silent = true })
       end
 
@@ -393,8 +394,15 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim', tag = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'} },
     config = function ()
+      -- https://github.com/nvim-telescope/telescope.nvim
+
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>ff', builtin.oldfiles, {})
+      vim.keymap.set('n', '<leader>fF', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>fc', builtin.lsp_incoming_calls, {})
+      vim.keymap.set('n', '<leader>fC', builtin.lsp_outgoing_calls, {})
+      vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
+      vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, {})
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
       vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
@@ -410,4 +418,63 @@ return require('packer').startup(function(use)
       require('guard').setup({})
     end
   }
+  use({
+    "epwalsh/obsidian.nvim",
+    tag = "*",  -- recommended, use latest release instead of latest commit
+    requires = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+      'nvim-telescope/telescope.nvim',
+      -- see below for full list of optional dependencies
+    },
+    config = function()
+      local obsidian = require("obsidian")
+      obsidian.setup({
+        workspaces = {
+          {
+            name = "daniel",
+            path = "~/Documents/obsidian/daniel",
+          },
+        },
+        mappings = {
+          [ "gd" ] = {
+            action = obsidian.util.gf_passthrough,
+            opts = { noremap = false, expr = true, buffer = true },
+          },
+          [ "gf" ] = {
+            action = obsidian.util.gf_passthrough,
+            opts = { noremap = false, expr = true, buffer = true },
+          },
+          [ "<leader>ot" ] = {
+            action = obsidian.util.toggle_checkbox,
+            opts = { buffer = true },
+          }
+        },
+        follow_url_func = function(url)
+          -- vim.fn.jobstart({"open", url})  -- Mac OS
+          vim.fn.jobstart({"xdg-open", url})  -- linux
+        end,
+        use_path_only = true,
+        note_id_func = function(title)
+          -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+          -- In this case a note with the title 'My new note' will be given an ID that looks
+          -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+          local suffix = ""
+          if title ~= nil then
+            -- If title is given, transform it into valid file name.
+            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          else
+            -- If title is nil, just add 4 random uppercase letters to the suffix.
+            for _ = 1, 4 do
+              suffix = suffix .. string.char(math.random(65, 90))
+            end
+          end
+          -- return tostring(os.time()) .. "-" .. suffix
+          return title
+        end,
+        -- see below for full list of options
+      })
+    end,
+  })
+
 end)
