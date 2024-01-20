@@ -242,13 +242,11 @@ return require('packer').startup(function(use)
     end
   }
   use {
-    'tomasiser/vim-code-dark',
+    'Mofiqul/vscode.nvim',
     config = function()
-      vim.g.codedark_modern = 1
-      vim.g.codedark_italics = 0
-      vim.g.codedark_transparent = 1
-      vim.cmd.colorscheme('codedark')
-      vim.cmd.highlight('Folded', 'guibg=#111111', 'guifg=#A0A0A0')
+      local vscode = require('vscode')
+      vscode.setup({transparent=true})
+      vscode.load()
     end
   }
   use {
@@ -403,6 +401,7 @@ return require('packer').startup(function(use)
       vim.keymap.set('n', '<leader>fC', builtin.lsp_outgoing_calls, {})
       vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
       vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, {})
+      vim.keymap.set('n', '<leader>fS', builtin.lsp_dynamic_workspace_symbols, {})
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
       vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
@@ -413,7 +412,7 @@ return require('packer').startup(function(use)
     requires = { {'nvimdev/guard-collection'} },
     config = function()
       local ft = require('guard.filetype')
-      ft('python'):fmt('black'):lint('flake8')
+      ft('python'):fmt('ruff'):lint('ruff')
       vim.keymap.set({'n', 'v'}, 'gq', '<Cmd>GuardFmt<CR>')
       require('guard').setup({})
     end
